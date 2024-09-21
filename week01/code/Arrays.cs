@@ -14,7 +14,7 @@ public static class Arrays
         // be implemented by another person.
 
         // Step 1 - Create an array to hold the multiples
-        // Step 2 - Loop through 1 to length to fill out the array
+        // Step 2 - Loop through 1 to length (from the function input) to fill out the array
         // Step 3 - Return the array
 
         double [] multiples = new double[length];
@@ -42,13 +42,14 @@ public static class Arrays
 
         // Step 1 - Adjust the amount to ensure it's within a valid range
         //      If the amount is larger than the size, will adjust by using the modulo
-        // Step 2 - Split the list into two parts, first part will be the last amount elements, the second will hold the remainder
-        // Step 3 - Clear the original list and merge the two parts
+        // Step 2 - Split the list into two parts, first part will be the last amount elements, these will be shifted forward in the rotation.
+        //      The second will hold the remainder, and this will become the latter group of the new array
+        // Step 3 - Clear the original list, then merge the two parts. First add the last group of elements, then the first group.
 
         amount = amount % data.Count;
 
-        List<int> firstPart = data.GetRange(0, data.Count - amount);
         List<int> lastPart = data.GetRange(data.Count - amount, amount);
+        List<int> firstPart = data.GetRange(0, data.Count - amount);
 
         data.Clear();
         data.AddRange(lastPart);
