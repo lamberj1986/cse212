@@ -13,7 +13,17 @@ public static class Arrays
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
 
-        return []; // replace this return statement with your own
+        // Step 1 - Create an array to hold the multiples
+        // Step 2 - Loop through 1 to length to fill out the array
+        // Step 3 - Return the array
+
+        double [] multiples = new double[length];
+
+        for (int i = 0; i < length; i++) {
+            multiples[i] = number * (i + 1);
+        }
+
+        return multiples;
     }
 
     /// <summary>
@@ -29,5 +39,19 @@ public static class Arrays
         // Remember: Using comments in your program, write down your process for solving this problem
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
+
+        // Step 1 - Adjust the amount to ensure it's within a valid range
+        //      If the amount is larger than the size, will adjust by using the modulo
+        // Step 2 - Split the list into two parts, first part will be the last amount elements, the second will hold the remainder
+        // Step 3 - Clear the original list and merge the two parts
+
+        amount = amount % data.Count;
+
+        List<int> firstPart = data.GetRange(0, data.Count - amount);
+        List<int> lastPart = data.GetRange(data.Count - amount, amount);
+
+        data.Clear();
+        data.AddRange(lastPart);
+        data.AddRange(firstPart);
     }
 }
