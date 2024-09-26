@@ -11,18 +11,33 @@ public class CustomerService {
         // Test Cases
 
         // Test 1
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: Adding a new customer and then serve the customer
+        // Expected Result: Error when trying to serve the customer
         Console.WriteLine("Test 1");
 
-        // Defect(s) Found: 
+        var newCustSize = new CustomerService(0);
+        newCustSize.AddNewCustomer();
+        newCustSize.ServeCustomer();
+        newCustSize.ServeCustomer();
+        Console.WriteLine(newCustSize);
+
+
+        // Defect(s) Found: In ServeCustomer, customer was being pulled before being served.
 
         Console.WriteLine("=================");
 
         // Test 2
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: Trying to add too many customers than the queue size
+        // Expected Result: Will get error message past the queue size
         Console.WriteLine("Test 2");
+
+        var newCustSize2 = new CustomerService(3);
+        
+        for (int i = 0; i < 5; i++) {
+            newCustSize2.AddNewCustomer();
+        }
+
+        Console.WriteLine(newCustSize2.ToString());
 
         // Defect(s) Found: 
 
@@ -67,7 +82,9 @@ public class CustomerService {
     /// </summary>
     private void AddNewCustomer() {
         // Verify there is room in the service queue
-        if (_queue.Count > _maxSize) {
+        if (_queue.Count >= _maxSize) { 
+            // Does this actually catch when there are more customers than the max count?
+            // Updated this to check that max size has not been reached prior to adding a new customer.
             Console.WriteLine("Maximum Number of Customers in Queue.");
             return;
         }
@@ -88,9 +105,15 @@ public class CustomerService {
     /// Dequeue the next customer and display the information.
     /// </summary>
     private void ServeCustomer() {
-        _queue.RemoveAt(0);
+        if (_queue.Count() == 0) {
+            Console.WriteLine("There are no more customers in the queue. Good Job!");
+            return;
+        } // Added error message for no customers in queue - FIXED
+
+        // Removing the customer before accessing the information - FIXED
         var customer = _queue[0];
         Console.WriteLine(customer);
+        _queue.RemoveAt(0); 
     }
 
     /// <summary>

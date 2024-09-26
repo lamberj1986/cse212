@@ -17,7 +17,7 @@
                 if (stack.Count == 0 || stack.Pop() != '{')
                     return false;
             }
-        }
+        } // (do something {something else}
 
         return stack.Count == 0;
     }
