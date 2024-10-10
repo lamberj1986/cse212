@@ -63,11 +63,11 @@ public static class SetsAndMaps
 
             if (degrees.ContainsKey(degreeName))
             {
-                degrees[degree]++;
+                degrees[degreeName]++;
             }
             else
             {
-                degrees[degree] = 1;
+                degrees[degreeName] = 1;
             }
         }
 
@@ -159,7 +159,7 @@ public static class SetsAndMaps
         // 2. Add code below to create a string out each place a earthquake has happened today and its magitude.
         // 3. Return an array of these string descriptions.
         
-        var summary = featureCollection.features.Select(f => $"{feature.properties.place} - {feature.properties.mag}").ToArray();
+        var summary = featureCollection.features.Select(f => $"{f.properties.place} - {f.properties.mag}").ToArray();
         
         return summary;
     }
