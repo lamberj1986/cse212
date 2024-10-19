@@ -23,8 +23,6 @@ public static class Recursion
 
         // Recursive case: n^2 + sum of squares of n-1
         return (n * n) + SumSquaresRecursive(n - 1);
-
-        return 0;
     }
 
     /// <summary>
@@ -107,8 +105,10 @@ public static class Recursion
     /// 'remember' has already been added as an input parameter to 
     /// the function for you to complete this task.
     /// </summary>
-    public static decimal CountWaysToClimb(int s, Dictionary<int, decimal> remember = null)
+    public static decimal CountWaysToClimb(int s, Dictionary<int, decimal> remember = null!)
     {
+        remember ??= new Dictionary<int, decimal>();
+
         if (remember == null)
             remember = new Dictionary<int, decimal>();
 
@@ -200,16 +200,16 @@ public static class Recursion
         }
 
         // Explore valid moves: right, down, left, and up
-        if (maze.IsValidMove(x + 1, y, currPath)) // Right
+        if (maze.IsValidMove(currPath, x + 1, y)) // Right
             SolveMaze(results, maze, x + 1, y, new List<ValueTuple<int, int>>(currPath));
 
-        if (maze.IsValidMove(x, y + 1, currPath)) // Down
+        if (maze.IsValidMove(currPath, x, y + 1)) // Down
             SolveMaze(results, maze, x, y + 1, new List<ValueTuple<int, int>>(currPath));
 
-        if (maze.IsValidMove(x - 1, y, currPath)) // Left
+        if (maze.IsValidMove(currPath, x - 1, y)) // Left
             SolveMaze(results, maze, x - 1, y, new List<ValueTuple<int, int>>(currPath));
 
-        if (maze.IsValidMove(x, y - 1, currPath)) // Up
+        if (maze.IsValidMove(currPath, x, y - 1)) // Up
             SolveMaze(results, maze, x, y - 1, new List<ValueTuple<int, int>>(currPath));
         // results.Add(currPath.AsString()); // Use this to add your path to the results array keeping track of complete maze solutions when you find the solution.
     }
